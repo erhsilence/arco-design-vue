@@ -2,6 +2,84 @@
 changelog: true
 ```
 
+## 2.38.0
+
+`2022-10-28`
+
+### 🆕 Feature
+
+- **space:** add `split` slot ([#1774](https://github.com/arco-design/arco-design-vue/pull/1774))
+
+### 🐛 BugFix
+
+- **select:** Fix formatLabel error when there is no data ([#1797](https://github.com/arco-design/arco-design-vue/pull/1797))
+- **modal:** Fix the problem that z-index does not take effect when custom style ([#1796](https://github.com/arco-design/arco-design-vue/pull/1796))
+- **radio:** Fix the problem that the state is not cleared when clearing model-value ([#1794](https://github.com/arco-design/arco-design-vue/pull/1794))
+- **checkbox:** Fix the problem that the state is not cleared when clearing model-value ([#1794](https://github.com/arco-design/arco-design-vue/pull/1794))
+- **form:** Do not modify the original object data of the rule ([#1779](https://github.com/arco-design/arco-design-vue/pull/1779))
+- **modal:** Fix the problem that closing does not unload internal components in function calls ([#1778](https://github.com/arco-design/arco-design-vue/pull/1778))
+- **drawer:** Fix the problem that closing does not unload internal components in function calls ([#1778](https://github.com/arco-design/arco-design-vue/pull/1778))
+
+### 💅 Style
+
+- **table:** Fix stripe style issue in dark mode ([#1795](https://github.com/arco-design/arco-design-vue/pull/1795))
+
+### 🆎 TypeScript
+
+- Add instance type export ([#1782](https://github.com/arco-design/arco-design-vue/pull/1782))
+
+
+## 2.38.0-beta.2
+
+`2022-10-21`
+
+### 🐛 BugFix
+
+- **date-picker:** Fix the problem of disabled style error under safari ([#1770](https://github.com/arco-design/arco-design-vue/pull/1770))
+- **trigger:** Fix the problem of wrong arrow positioning in windows ([#1480](https://github.com/arco-design/arco-design-vue/pull/1480))
+- **modal:** Fixed the problem that the unloading of incoming subcomponents would not be triggered under the function call
+
+### 💎 Enhancement
+
+- **cascader:** When the submenus are all disabled when optimizing multi-selection, the parent prohibits the selection ([#1771](https://github.com/arco-design/arco-design-vue/pull/1771))
+- **progress:** Optimize the display logic of split points ([#1755](https://github.com/arco-design/arco-design-vue/pull/1755))
+- **pagination:** Optimize number processing when entering page numbers ([#1750](https://github.com/arco-design/arco-design-vue/pull/1750))
+
+
+## 2.38.0-beta.1
+
+`2022-10-14`
+
+### 🆕 Feature
+
+- The table, select, and list components have added the scrollbar attribute to support switching virtual scroll bars ([#1747](https://github.com/arco-design/arco-design-vue/pull/1747))
+- **notification:** notification and  notification listspace style adjustment ([#1676](https://github.com/arco-design/arco-design-vue/pull/1676))
+- **notification:** `showIcon` not working ([#1676](https://github.com/arco-design/arco-design-vue/pull/1676))
+- **notification:** support custom close icon & close element ([#1676](https://github.com/arco-design/arco-design-vue/pull/1676))
+- **notification:** support custom style ([#1676](https://github.com/arco-design/arco-design-vue/pull/1676))
+- **notification:** temove the notification corresponding to `id` ([#1676](https://github.com/arco-design/arco-design-vue/pull/1676))
+- **notification:** demo ([#1676](https://github.com/arco-design/arco-design-vue/pull/1676))
+- **descriptions:** The `layout-fixed` of the table style in the description. The width will be evenly distributed when it's set to `fixed`. ([#1670](https://github.com/arco-design/arco-design-vue/pull/1670))
+
+### 🐛 BugFix
+
+- **transfer:** Fix can't scroll problem ([#1723](https://github.com/arco-design/arco-design-vue/pull/1723))
+- **spin:** Fix the problem that size is invalid ([#1717](https://github.com/arco-design/arco-design-vue/pull/1717))
+
+### 💎 Enhancement
+
+- **select:** Increase the cache of selected items, and optimize the label display problem during remote search ([#1731](https://github.com/arco-design/arco-design-vue/pull/1731))
+- **modal:** Functional calls can set the renderToBody parameter ([#1682](https://github.com/arco-design/arco-design-vue/pull/1682))
+
+### 💅 Style
+
+- **table:** Fixed the problem that summary row height was compressed when both summary row and scroll were enabled in the table ([#1733](https://github.com/arco-design/arco-design-vue/pull/1733))
+
+### 🆎 TypeScript
+
+- **collapse:** Fix key attribute definition of `collapse-item` to allow number ([#1743](https://github.com/arco-design/arco-design-vue/pull/1743))
+
+
 ## 2.37.4
 
 `2022-09-30`

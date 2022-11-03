@@ -2,6 +2,24 @@
 changelog: true
 ```
 
+## 2.38.0
+
+`2022-10-28`
+
+### 🐛 BugFix
+
+- Fix formatLabel error when there is no data ([#1797](https://github.com/arco-design/arco-design-vue/pull/1797))
+
+
+## 2.38.0-beta.1
+
+`2022-10-14`
+
+### 💎 Enhancement
+
+- Increase the cache of selected items, and optimize the label display problem during remote search ([#1731](https://github.com/arco-design/arco-design-vue/pull/1731))
+
+
 ## 2.37.4
 
 `2022-09-30`

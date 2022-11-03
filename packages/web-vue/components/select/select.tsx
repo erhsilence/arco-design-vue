@@ -11,6 +11,7 @@ import {
 import { getPrefixCls } from '../_utils/global-config';
 import {
   isArray,
+  isEmptyObject,
   isFunction,
   isNull,
   isNumber,
@@ -21,17 +22,17 @@ import { getKeyFromValue, isGroupOptionInfo, isValidOption } from './utils';
 import Trigger, { TriggerProps } from '../trigger';
 import SelectView from '../_components/select-view/select-view';
 import { Size } from '../_utils/constant';
-import { Data, EmitType } from '../_utils/types';
+import { Data } from '../_utils/types';
 import SelectDropdown from './select-dropdown.vue';
 import Option from './option.vue';
 import OptGroup from './optgroup.vue';
 import {
-  SelectOptionData,
-  SelectOptionInfo,
-  SelectOptionGroupInfo,
   OptionValueWithKey,
   SelectFieldNames,
+  SelectOptionData,
   SelectOptionGroup,
+  SelectOptionGroupInfo,
+  SelectOptionInfo,
 } from './interface';
 import VirtualList from '../_components/virtual-list-v2';
 import { VirtualListProps } from '../_components/virtual-list-v2/interface';
@@ -41,6 +42,7 @@ import { useTrigger } from '../_hooks/use-trigger';
 import { useFormItem } from '../_hooks/use-form-item';
 import { debounce } from '../_utils/debounce';
 import { SelectViewValue } from '../_components/select-view/interface';
+import { ScrollbarProps } from '../scrollbar';
 
 const DEFAULT_FIELD_NAMES = {
   value: 'value',
@@ -326,6 +328,10 @@ export default defineComponent({
     fieldNames: {
       type: Object as PropType<SelectFieldNames>,
     },
+    scrollbar: {
+      type: [Boolean, Object] as PropType<boolean | ScrollbarProps>,
+      default: true,
+    },
   },
   emits: {
     'update:modelValue': (
@@ -533,6 +539,22 @@ export default defineComponent({
       ...fieldNames?.value,
     }));
 
+    // selected option
+    const _selectedOption = ref();
+    const getRawOptionFromValueKeys = (valueKeys: string[]) => {
+      const optionMap: Record<string, unknown> = {};
+
+      valueKeys.forEach((key) => {
+        optionMap[key] = optionInfoMap.get(key);
+      });
+
+      return optionMap;
+    };
+
+    const updateSelectedOption = (valueKeys: string[]) => {
+      _selectedOption.value = getRawOptionFromValueKeys(valueKeys);
+    };
+
     // extra value and option
     const getFallBackOption = (
       value: string | number | Record<string, unknown>
@@ -581,7 +603,17 @@ export default defineComponent({
 
     const extraValueObjects = ref<OptionValueWithKey[]>([]);
     const extraOptions = computed(() =>
-      extraValueObjects.value.map((obj) => getFallBackOption(obj.value))
+      extraValueObjects.value.map((obj) => {
+        let optionInfo = getFallBackOption(obj.value);
+        const extraOptionRawInfo = _selectedOption.value?.[obj.key];
+        if (
+          !isUndefined(extraOptionRawInfo) &&
+          !isEmptyObject(extraOptionRawInfo)
+        ) {
+          optionInfo = { ...optionInfo, ...extraOptionRawInfo };
+        }
+        return optionInfo;
+      })
     );
 
     nextTick(() => {
@@ -627,6 +659,7 @@ export default defineComponent({
       emit('update:modelValue', value);
       emit('change', value);
       eventHandlers.value?.onChange?.();
+      updateSelectedOption(valueKeys);
     };
 
     const updateInputValue = (inputValue: string) => {
@@ -846,6 +879,7 @@ export default defineComponent({
           loading={props.loading}
           empty={validOptionInfos.value.length === 0}
           virtualList={Boolean(props.virtualListProps)}
+          scrollbar={props.scrollbar}
           onScroll={handleDropdownScroll}
           onReachBottom={handleDropdownReachBottom}
         />
@@ -853,7 +887,7 @@ export default defineComponent({
     };
 
     const renderLabel = ({ data }: { data: SelectViewValue }) => {
-      if (slots.label || isFunction(props.formatLabel)) {
+      if ((slots.label || isFunction(props.formatLabel)) && data) {
         const optionInfo = optionInfoMap.get(data.value as string);
         if (optionInfo?.raw) {
           return (
@@ -862,7 +896,7 @@ export default defineComponent({
           );
         }
       }
-      return data.label;
+      return data?.label ?? '';
     };
 
     return () => (
